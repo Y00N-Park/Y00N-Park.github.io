@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+
+    </head>
+    
+    <style>
+
+    
+    /* put in external css */
+    #score {
+        text-align: center;
+    }
+
+    #zombie {
+        position: absolute;
+    }
+
+    #end_button {
+        position: absolute;;
+        bottom: 0px;
+        left: 50%;
+        margin-left: -50px;
+        width: 100px;
+        height: 50px;
+    }
+
+    
+
+    
+    
+    </style>
+
+    <body>
+
+        <img id="zombie" onclick="zombie()" src="./images/zombie.png" width="150">
+        <img id="explosion">
+
+        <input type="button" id="end_button" onclick="end()" value="END">
+        <h1 id="score"></h1>
+
+        <script>
+
+            let count=-1;
+            zombie_score();
+            //auto_moving();
+
+        function zombie() {
+
+            //movingZombie();
+            zombieAudio();
+            explosion_zombie();
+            zombie_score();
+        }
+
+        setInterval(function movingZombie() {
+            
+            let zombie_img = document.getElementById("zombie");
+
+            let window_height = window.innerHeight;
+            let window_width = window.innerWidth;
+
+            let avail_h = Math.floor(window_height - zombie_img.height);
+            let avail_w = Math.floor(window_width - zombie_img.width);
+
+            let random_h = Math.floor(Math.random() * avail_h);
+            let random_w = Math.floor(Math.random() * avail_w);
+
+            zombie_img.style.top = random_h + 'px';
+            zombie_img.style.left = random_w + 'px';
+            document.getElementById("zombie").src = "./images/zombie.png";
+        }, 2000);
+
+        function auto_moving() {
+            let auto_moving = setInterval(movingZombie, 2000);
+        }
+
+        function explosion_zombie() {
+            clearInterval(auto_moving);
+            document.getElementById("zombie").src = "./images/explosion.gif";
+            //document.getElementById('zombie').src="./images/zombie.png";
+        }
+
+        function change_image() {
+            document.getElementById('zombie').src="./images/zombie.png";
+            //movingZombie();
+            //auto_moving = setInterval(movingZombie, 2000);
+        }
+
+        function zombieAudio() {
+            let audio = new Audio("./audio/z_sound.mp3");
+            audio.play();
+        }
+
+        function zombie_score() {
+            count++;
+            document.getElementById("score").innerHTML = "Score: " + count;
+        }
+        
+        function end() {
+            document.getElementById('score').innerHTML = "Score: 0";
+            document.getElementById('zombie').style.top="0%";
+            document.getElementById('zombie').style.left="0%";
+            //let auto_moving = setInterval(movingZombie, 2000);
+        }
+
+        </script>
+    </body>
+</html>
