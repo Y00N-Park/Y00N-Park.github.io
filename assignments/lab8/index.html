@@ -26,13 +26,15 @@
 
         random_button(23);
 
+        
+
 
         function Recipe (title, serve, ingredient) {
             this.title = title;
             this.serve = serve;
             this.ingredient = ingredient;
             this.print = function() {
-                document.write("Title: " + title + "<br>");
+                document.write("<br> Title: " + title + "<br>");
                 document.write("Serve: " + serve + "<br>");
                 document.write("Ingredient: <br>");
                 for (i=0;i<ingredient.length;i++) {
