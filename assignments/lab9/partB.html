@@ -1,0 +1,85 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <p>How many buttons to create?</p>
+    <input type="text" id="num">
+    <button type="button" id="create_btn">Go!</button>
+    <p id='p1'></p>
+    <br>
+
+    <script>
+
+        document.getElementById("create_btn").onclick = create_buttons;
+
+        let counter = 0;
+
+        function Button(width, height, order, top, left) {
+            this.btn = document.createElement('button');
+            this.btn.style.backgroundColor = btn_color();
+            this.btn.style.width = width;
+            this.btn.style.height = height;
+            this.order = order;
+            document.body.appendChild(this.btn);
+            this.setLocation = function (top, left) {
+                this.btn.style.position='absolute';
+                this.btn.style.top = top;
+                this.btn.style.left = left;
+            };
+            this.setLocation(top, left);
+            this.btn.style.position = "relative";
+
+        }
+
+        function genPos1() {
+            return Math.floor(Math.random() * (window.innerHeight - 60)) + 'px';
+        }
+        function genPos2() {
+            return Math.floor(Math.random() * (window.innerWidth - 120)) + 'px';
+
+        }
+
+        function btn_color() {
+            let red = Math.floor(Math.random() * 256).toString();
+            let green = Math.floor(Math.random() * 256).toString();
+            let blue = Math.floor(Math.random() * 256).toString();
+            let rgb_color = "rgb(" + red + "," + green + "," + blue + ")";
+            return rgb_color;
+        }
+
+        function create_buttons() {
+            var x = document.getElementById("num").value;
+            if (5 <= parseInt(x) <= 100) {
+                for (i = 0; i < parseInt(x); i++) {
+                    let  button = new Button('120px', '60px', i);
+                    setTimeout(function () {
+                        button.setLocation(genPos1(), genPos2());
+                        button.btn.onclick = function() {
+                            if (counter === button.order) {
+                                document.getElementById("p1").innerHTML = "Excellent memory!";
+                            } else {
+                                document.getElementById("p1").innerHTML = "Wrong order!";
+                            }
+                            counter++;
+                        }
+                    }, parseInt(x) * 1000)
+                }
+            } else {
+                document.getElementById("demo").innerHTML = "Please enter number between 5 and 100"
+            }
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
